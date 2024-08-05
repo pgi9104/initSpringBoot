@@ -1,0 +1,29 @@
+server:
+  port: 9000
+---
+spring:
+  application:
+    name: project
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mariadb://192.168.56.10:53307/AUTH_DB?characterEncoding=UTF-8
+    username: ${SPRING_APP_DATABASE_USERNAME}
+    password: ${SPRING_APP_DATABASE_PASSWORD}
+    sql-script-encoding: utf-8
+  jpa:
+    hibernate:
+      ddl-auto: none        # DB 초기화 전략 (none, create, create-drop, update, validate)
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true      # 쿼리 로그 포맷 (정렬)
+        show_sql: true        # 쿼리 로그 출력
+        use_sql_comments: false # 디버깅이 용이하도록 SQL문 이외에 추가적인 정보를 출력한다.
+
+---
+---    
+# Mybatis 설정
+mybatis:
+  mapper-locations: "classpath*:mapper/**/*.xml" # mapper location - 바라 볼 xml 파일을 지정합니다.
+  config-location: classpath:mybatis-config.xml
